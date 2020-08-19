@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/dataType.dart';
+import 'package:flutter_app/oop.dart';
 
 void main() {
   runApp(MyApp());
@@ -72,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+    _oopLearn();
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -105,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            DataType()
+            DataType(),
           ],
         ),
       ),
@@ -115,5 +117,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  void _oopLearn() {
+    Logger logger1 = Logger();
+    logger1.log("123");
+
+    Student student = Student("Ryan", 18, "GitHub");
+    Student.say("I say ..." + student.school);
   }
 }
