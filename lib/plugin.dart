@@ -1,22 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/data_type.dart';
-import 'package:flutter_app/layout_page.dart';
-import 'package:flutter_app/less_group_page.dart';
-import 'package:flutter_app/oop.dart';
-import 'package:flutter_app/statefull_group_page.dart';
+import 'package:flutter_color_plugin/flutter_color_plugin.dart';
 
-void main() {
-//  runApp(LessGroupPage());
-//  runApp(StatefulGroupPage());
-  runApp(LayoutPage());
-}
-
-class MyApp extends StatelessWidget {
+class PluginUse extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: '使用Flutter Plugin',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -33,7 +23,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Flutter插件使用方式'),
     );
   }
 }
@@ -78,7 +68,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    _oopLearn();
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -107,12 +96,12 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Text(
               'You have pushed the button this many times:',
+              style: TextStyle(color: ColorUtil.color("#f2f2f2")),
             ),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
-            DataType(),
           ],
         ),
       ),
@@ -122,13 +111,5 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
-  }
-
-  void _oopLearn() {
-    Logger logger1 = Logger();
-    logger1.log("123");
-
-    Student student = Student("Ryan", 18, "GitHub");
-    Student.say("I say ..." + student.school);
   }
 }
