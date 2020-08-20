@@ -21,6 +21,12 @@ class _StatefulGroupState extends State<LayoutPage> {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Layout'),
+          leading: GestureDetector(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back),
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currIndex,
@@ -91,17 +97,55 @@ class _StatefulGroupState extends State<LayoutPage> {
                               Padding(
                                 padding: EdgeInsets.all(10),
                                 child: ClipRect(
-                                  child: Opacity( // Opacity用来设置透明度
+                                  child: Opacity(
+                                    // Opacity用来设置透明度
                                     opacity: 0.5,
-                                    child: Image.network(
-                                        'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2871418540,755792920&fm=26&gp=0.jpg'),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Image.network(
+                                          'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2871418540,755792920&fm=26&gp=0.jpg',
+                                          width: 100,
+                                          height: 50,
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text(
+                                          "Opacity用来设置透明度",
+                                          style: TextStyle(color: Colors.white),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           )
                         ],
                       ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: FractionallySizedBox(
+                        widthFactor: 1,
+                        child: Text(
+                          'FractionallySizedBox用来撑满全屏',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    Stack(
+                      children: <Widget>[
+                        Text('Stack类似FrameLayout'),
+                        Container(
+                          margin: EdgeInsets.only(top: 20),
+                          child: Text('data'),
+                        )
+                      ],
                     )
                   ],
                 ),

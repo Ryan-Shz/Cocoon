@@ -21,6 +21,12 @@ class _StatefulGroupState extends State<StatefulGroupPage> {
       home: Scaffold(
         appBar: AppBar(
           title: Text('StatefulWidget'),
+          leading: GestureDetector(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back),
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currIndex,
