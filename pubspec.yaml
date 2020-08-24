@@ -31,6 +31,7 @@ dependencies:
   flutter_color_plugin: ^0.0.2
   url_launcher: ^5.0.2
   flutter_swiper : ^1.1.6
+  http : ^0.12.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

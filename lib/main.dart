@@ -3,10 +3,11 @@ import 'package:flutter_app/data_type.dart';
 import 'package:flutter_app/gesture_page.dart';
 import 'package:flutter_app/layout_page.dart';
 import 'package:flutter_app/less_group_page.dart';
+import 'package:flutter_app/list_widget_page.dart';
 import 'package:flutter_app/oop.dart';
 import 'package:flutter_app/plugin.dart';
 import 'package:flutter_app/resource_page.dart';
-import 'package:flutter_app/statefull_group_page.dart';
+import 'package:flutter_app/stateful_group_page.dart';
 import 'package:flutter_app/tab/tab_navigator_page.dart';
 import 'package:flutter_app/widget_lifecycle_page.dart';
 
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         'resource': (context) => ResourcePage(),
         'lifecycle': (context) => WidgetLifecyclePage(),
         'tab': (context) => TabNavigatorPage(),
+        'list': (context) => ListWidgetPage(),
       },
     );
   }
@@ -96,6 +98,7 @@ class _RouterNavigatorState extends State<RouterNavigator> {
             _createButton('ResourcePage', ResourcePage(), 'resource'),
             _createButton('WidgetLifecyclePage', WidgetLifecyclePage(), 'lifecycle'),
             _createButton('TabNavigatorPage', TabNavigatorPage(), 'tab'),
+            _createButton('ListWidgetPage', ListWidgetPage(), 'list'),
           ],
         ),
       ),
