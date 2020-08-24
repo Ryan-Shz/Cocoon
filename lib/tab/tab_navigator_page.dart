@@ -24,9 +24,6 @@ class _TabNavigatorPageState extends State<TabNavigatorPage> {
     return MaterialApp(
       title: "首页导航框架",
       home: Scaffold(
-          appBar: AppBar(
-            title: Text("首页导航"),
-          ),
           body: PageView(
             controller: _controller,
             children: <Widget>[
