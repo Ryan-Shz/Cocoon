@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/data_type.dart';
+import 'package:flutter_app/gesture_page.dart';
 import 'package:flutter_app/layout_page.dart';
 import 'package:flutter_app/less_group_page.dart';
 import 'package:flutter_app/oop.dart';
 import 'package:flutter_app/plugin.dart';
+import 'package:flutter_app/resource_page.dart';
 import 'package:flutter_app/statefull_group_page.dart';
+import 'package:flutter_app/widget_lifecycle_page.dart';
 
 void main() {
 //  runApp(LessGroupPage());
@@ -30,6 +33,9 @@ class MyApp extends StatelessWidget {
         'ful': (context) => StatefulGroupPage(),
         'layout': (context) => LayoutPage(),
         'plugin': (context) => PluginUse(),
+        'gesture': (context) => GesturePage(),
+        'resource': (context) => ResourcePage(),
+        'lifecycle': (context) => WidgetLifecyclePage(),
       },
     );
   }
@@ -84,6 +90,9 @@ class _RouterNavigatorState extends State<RouterNavigator> {
             _createButton('StatefulWidget', StatefulGroupPage(), 'ful'),
             _createButton('LayoutPage', LayoutPage(), 'layout'),
             _createButton('PluginPage', PluginUse(), 'plugin'),
+            _createButton('GesturePage', GesturePage(), 'gesture'),
+            _createButton('ResourcePage', ResourcePage(), 'resource'),
+            _createButton('WidgetLifecyclePage', WidgetLifecyclePage(), 'lifecycle'),
           ],
         ),
       ),

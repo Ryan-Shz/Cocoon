@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_color_plugin/flutter_color_plugin.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PluginUse extends StatelessWidget {
   // This widget is the root of your application.
@@ -74,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
         leading: GestureDetector(
-          onTap: (){
+          onTap: () {
             Navigator.pop(context);
           },
           child: Icon(Icons.arrow_back),
@@ -100,14 +101,12 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-              style: TextStyle(color: ColorUtil.color("#f2f2f2")),
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
+            RaisedButton(
+              onPressed: () {
+                _launchURL();
+              },
+              child: Text('跳转到网页'),
+            )
           ],
         ),
       ),
@@ -117,5 +116,14 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+
+  _launchURL() async {
+    const url = 'https://flutter.dev';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
