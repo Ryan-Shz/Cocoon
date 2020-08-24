@@ -40,9 +40,12 @@ class _TabNavigatorPageState extends State<TabNavigatorPage> {
                 _currIndex = index;
               });
             },
+            // 让PageView无法左右滚动
+            physics: NeverScrollableScrollPhysics(),
           ),
           bottomNavigationBar: BottomNavigationBar(
               currentIndex: _currIndex,
+              // 让items水平等分
               type: BottomNavigationBarType.fixed,
               onTap: (index) {
                 setState(() {
