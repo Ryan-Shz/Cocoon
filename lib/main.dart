@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/data_type.dart';
+import 'package:flutter_app/dart/oop.dart';
 import 'package:flutter_app/gesture_page.dart';
 import 'package:flutter_app/layout_page.dart';
 import 'package:flutter_app/less_group_page.dart';
 import 'package:flutter_app/list_widget_page.dart';
-import 'package:flutter_app/oop.dart';
+import 'package:flutter_app/dart/operator.dart';
 import 'package:flutter_app/plugin.dart';
 import 'package:flutter_app/resource_page.dart';
 import 'package:flutter_app/stateful_group_page.dart';
@@ -16,6 +16,9 @@ void main() {
 //  runApp(StatefulGroupPage());
 //  runApp(LayoutPage());
   runApp(MyApp());
+  
+  Operator operator = Operator();
+  operator.test();
 }
 
 class MyApp extends StatelessWidget {

@@ -4,7 +4,6 @@ class BannerModel {
 
   BannerModel({this.icon, this.url});
 
-  factory BannerModel.fromJson(Map<String, dynamic> map) {
-    return BannerModel(icon: map['icon'], url: map['url']);
-  }
+  BannerModel.fromJsonMap(Map<String, Object> map)
+      : this(icon: map['icon'], url: map['url']);
 }

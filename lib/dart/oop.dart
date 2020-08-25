@@ -67,6 +67,14 @@ class Student extends Person {
   }
 }
 
+class Teacher {
+
+  final String school;
+
+  const Teacher({this.school});
+
+}
+
 class Logger {
   static Logger _cache;
 
