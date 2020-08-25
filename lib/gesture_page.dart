@@ -31,8 +31,7 @@ class _State extends State<GesturePage> {
                  children: <Widget>[
                    GestureDetector(
                      onTap: () {
-                       final snackBar = SnackBar(content: Text('Yay! A SnackBar!'));
-                       Scaffold.of(context).showSnackBar(snackBar);
+                       print('onTap');
                      },
                      child: Container(
                        padding: EdgeInsets.all(10),
