@@ -36,13 +36,13 @@ class Operator {
 
     // 创建和使用枚举
     // 枚举有两个属性，index和values
-    print(Colors.blue.index);
-    print(Colors.values);
+    print(MyColors.blue.index);
+    print(MyColors.values);
   }
 }
 
 // 创建枚举
-enum Colors { red, blue, green }
+enum MyColors { red, blue, green }
 
 // implements可以实现多个类，但是必须实现该类的所有方法
 class SuperMan implements Runner, Flyable {

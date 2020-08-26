@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/tab/HomePage.dart';
-import 'package:flutter_app/tab/MyPage.dart';
-import 'package:flutter_app/tab/SearchPage.dart';
-import 'package:flutter_app/tab/TravelPage.dart';
+import 'package:flutter_app/app/HomePage.dart';
+import 'package:flutter_app/app/MyPage.dart';
+import 'package:flutter_app/app/SearchPage.dart';
+import 'package:flutter_app/app/TravelPage.dart';
 
 class TabNavigatorPage extends StatefulWidget {
   @override
@@ -24,6 +24,7 @@ class _TabNavigatorPageState extends State<TabNavigatorPage> {
     return MaterialApp(
       title: "首页导航框架",
       home: Scaffold(
+          backgroundColor: Color(0xfff2f2f2),
           body: PageView(
             controller: _controller,
             children: <Widget>[

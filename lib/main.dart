@@ -8,7 +8,7 @@ import 'package:flutter_app/dart/operator.dart';
 import 'package:flutter_app/plugin.dart';
 import 'package:flutter_app/resource_page.dart';
 import 'package:flutter_app/stateful_group_page.dart';
-import 'package:flutter_app/tab/tab_navigator_page.dart';
+import 'package:flutter_app/app/tab_navigator_page.dart';
 import 'package:flutter_app/widget_lifecycle_page.dart';
 
 void main() {

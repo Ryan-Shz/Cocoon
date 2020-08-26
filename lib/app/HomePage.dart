@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/app/dao/home_dao.dart';
+import 'package:flutter_app/app/model/home_model.dart';
+import 'package:flutter_app/app/widget/grid_nav.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:toast/toast.dart';
 
 const APPBAR_SCROLL_OFFSET = 200;
 
@@ -10,6 +14,24 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   double _appBarAlpha = 0;
+  HomeModel _homeModel;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchHomeData();
+  }
+
+  void fetchHomeData() async {
+    try {
+      HomeModel model = await HomeDao.fetch();
+      setState(() {
+        _homeModel = model;
+      });
+    } catch (err) {
+      _toast(err.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +57,11 @@ class _HomePageState extends State<HomePage> {
                       Container(
                         height: 160,
                         child: Swiper(
-                          itemCount: 3,
+                          itemCount: _homeModel?.bannerList?.length ?? 0,
                           itemBuilder: (context, index) {
                             return Image.network(
-                              'http://via.placeholder.com/350x150',
+                              _homeModel.bannerList[index].icon,
+                              fit: BoxFit.fill,
                             );
                           },
                           pagination: SwiperPagination(),
@@ -47,12 +70,11 @@ class _HomePageState extends State<HomePage> {
                           autoplay: true,
                         ),
                       ),
-                      Container(
-                        height: 800,
-                        child: ListTile(
-                          title: Text("data"),
-                        ),
-                      )
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 7, vertical: 4),
+                        child: GridNavItem(_homeModel?.localNavList),
+                      ),
                     ],
                   )),
               Opacity(
@@ -84,5 +106,10 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _appBarAlpha = alpha;
     });
+  }
+
+  void _toast(String message) {
+    Toast.show(message, context,
+        duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
   }
 }
