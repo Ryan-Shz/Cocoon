@@ -15,10 +15,9 @@ void main() {
 //  runApp(LessGroupPage());
 //  runApp(StatefulGroupPage());
 //  runApp(LayoutPage());
-  runApp(MyApp());
-  
-  Operator operator = Operator();
-  operator.test();
+//  Operator operator = Operator();
+//  operator.test();
+  runApp(TabNavigatorPage());
 }
 
 class MyApp extends StatelessWidget {

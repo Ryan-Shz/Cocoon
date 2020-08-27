@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/app/dao/home_dao.dart';
+import 'package:flutter_app/app/model/banner_model.dart';
+import 'package:flutter_app/app/model/common_model.dart';
+import 'package:flutter_app/app/model/grid_nav_model.dart';
 import 'package:flutter_app/app/model/home_model.dart';
+import 'package:flutter_app/app/model/sales_box_model.dart';
+import 'package:flutter_app/app/widget/grid_item.dart';
 import 'package:flutter_app/app/widget/grid_nav.dart';
+import 'package:flutter_app/app/widget/sales_box.dart';
+import 'package:flutter_app/app/widget/sub_nav.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:toast/toast.dart';
 
@@ -14,7 +21,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   double _appBarAlpha = 0;
-  HomeModel _homeModel;
+  bool _fetchHomeDataSuccess = false;
+  List<BannerModel> _bannerList = [];
+  List<CommonModel> _localNavList = [];
+  GridNavModel _gridNavModel;
+  NavModel _hotel;
+  NavModel _flight;
+  NavModel _travel;
+  List<CommonModel> _subNavList;
+  SalesBoxModel _salesBoxModel;
 
   @override
   void initState() {
@@ -26,7 +41,15 @@ class _HomePageState extends State<HomePage> {
     try {
       HomeModel model = await HomeDao.fetch();
       setState(() {
-        _homeModel = model;
+        _fetchHomeDataSuccess = true;
+        _bannerList = model.bannerList;
+        _localNavList = model.localNavList;
+        _gridNavModel = model.gridNav;
+        _hotel = _gridNavModel.hotel;
+        _flight = _gridNavModel.flight;
+        _travel = _gridNavModel.travel;
+        _subNavList = model.subNavList;
+        _salesBoxModel = model.salesBox;
       });
     } catch (err) {
       _toast(err.toString());
@@ -37,7 +60,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       // MediaQuery.removePadding可以让布局向状态栏延伸
-      body: MediaQuery.removePadding(
+      body: _fetchHomeDataSuccess ? MediaQuery.removePadding(
           context: context,
           removeTop: true,
           // NotificationListener用于监听子列表滚动
@@ -57,10 +80,10 @@ class _HomePageState extends State<HomePage> {
                       Container(
                         height: 160,
                         child: Swiper(
-                          itemCount: _homeModel?.bannerList?.length ?? 0,
+                          itemCount: _bannerList.length,
                           itemBuilder: (context, index) {
                             return Image.network(
-                              _homeModel.bannerList[index].icon,
+                              _bannerList[index].icon,
                               fit: BoxFit.fill,
                             );
                           },
@@ -73,26 +96,27 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-                        child: GridNavItem(_homeModel?.localNavList),
+                        child: GridNavItem(_localNavList),
                       ),
+                      HomeGridItem(
+                        model: _hotel,
+                        topRadius: true,
+                      ),
+                      HomeGridItem(
+                        model: _flight,
+                      ),
+                      HomeGridItem(
+                        model: _travel,
+                        bottomRadius: true,
+                      ),
+                      SubNavList(
+                        subNavList: _subNavList,
+                      ),
+                      SalesBox(_salesBoxModel),
                     ],
                   )),
-              Opacity(
-                // Opacity用来改变Widget的透明度
-                opacity: _appBarAlpha,
-                child: Container(
-                  height: 80,
-                  decoration: BoxDecoration(color: Colors.white),
-                  child: Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 20),
-                      child: Text('首页'),
-                    ),
-                  ),
-                ),
-              )
             ],
-          )),
+          )) : Container(),
     );
   }
 
