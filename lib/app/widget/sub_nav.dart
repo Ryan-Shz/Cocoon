@@ -10,6 +10,7 @@ class SubNavList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(top: 5, left: 6, right: 6),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(6)),
           color: Colors.white),

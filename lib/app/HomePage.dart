@@ -59,6 +59,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xfff2f2f2),
       // MediaQuery.removePadding可以让布局向状态栏延伸
       body: _fetchHomeDataSuccess ? MediaQuery.removePadding(
           context: context,
@@ -98,17 +99,21 @@ class _HomePageState extends State<HomePage> {
                             EdgeInsets.symmetric(horizontal: 7, vertical: 4),
                         child: GridNavItem(_localNavList),
                       ),
-                      HomeGridItem(
-                        model: _hotel,
-                        topRadius: true,
-                      ),
-                      HomeGridItem(
-                        model: _flight,
-                      ),
-                      HomeGridItem(
-                        model: _travel,
-                        bottomRadius: true,
-                      ),
+                      Padding(padding: EdgeInsets.symmetric(horizontal: 6), child: Column(
+                        children: <Widget>[
+                          HomeGridItem(
+                            model: _hotel,
+                            topRadius: true,
+                          ),
+                          HomeGridItem(
+                            model: _flight,
+                          ),
+                          HomeGridItem(
+                            model: _travel,
+                            bottomRadius: true,
+                          ),
+                        ],
+                      ),),
                       SubNavList(
                         subNavList: _subNavList,
                       ),
