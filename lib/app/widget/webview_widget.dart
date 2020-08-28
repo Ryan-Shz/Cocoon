@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app/app/utils/color_utils.dart';
+import 'package:flutter_app/app/utils/statusbar_utils.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'dart:math' as math;
 
 const BACK_URLS = [
   'https://m.ctrip.com/html5/',
@@ -76,13 +76,9 @@ class _WebViewState extends State<WebViewWidget> {
   }
 
   Widget createAppBar(Color backgroundColor) {
-    // 获取状态栏高度
-    EdgeInsets padding = MediaQuery.of(context).padding;
-    double top = math.max(padding.top, EdgeInsets.zero.top);
     return Container(
-      height: top,
+      height: StatusBarUtils.getStatusBarHeight(context),
       decoration: BoxDecoration(color: backgroundColor),
     );
   }
-
 }

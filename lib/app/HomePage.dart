@@ -5,14 +5,18 @@ import 'package:flutter_app/app/model/common_model.dart';
 import 'package:flutter_app/app/model/grid_nav_model.dart';
 import 'package:flutter_app/app/model/home_model.dart';
 import 'package:flutter_app/app/model/sales_box_model.dart';
+import 'package:flutter_app/app/utils/statusbar_utils.dart';
 import 'package:flutter_app/app/widget/grid_item.dart';
 import 'package:flutter_app/app/widget/grid_nav.dart';
+import 'package:flutter_app/app/widget/loading.dart';
 import 'package:flutter_app/app/widget/sales_box.dart';
+import 'package:flutter_app/app/widget/search_bar.dart';
 import 'package:flutter_app/app/widget/sub_nav.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:toast/toast.dart';
 
 const APPBAR_SCROLL_OFFSET = 200;
+const SEARCH_BOX_HINT = '网红打卡地 景点 酒店 美食';
 
 class HomePage extends StatefulWidget {
   @override
@@ -61,67 +65,105 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Color(0xfff2f2f2),
       // MediaQuery.removePadding可以让布局向状态栏延伸
-      body: _fetchHomeDataSuccess ? MediaQuery.removePadding(
-          context: context,
-          removeTop: true,
-          // NotificationListener用于监听子列表滚动
-          child: Stack(
-            children: <Widget>[
-              NotificationListener(
-                  onNotification: (notification) {
-                    if (notification is ScrollUpdateNotification &&
-                        // notification.depth == 0表示只监听ListView的第0个子Widget
-                        notification.depth == 0) {
-                      _onScroll(notification.metrics.pixels);
-                    }
-                    return true;
-                  },
-                  child: ListView(
-                    children: <Widget>[
-                      Container(
-                        height: 160,
-                        child: Swiper(
-                          itemCount: _bannerList.length,
-                          itemBuilder: (context, index) {
-                            return Image.network(
-                              _bannerList[index].icon,
-                              fit: BoxFit.fill,
-                            );
-                          },
-                          pagination: SwiperPagination(),
-                          loop: true,
-                          duration: 300,
-                          autoplay: true,
+      body: _fetchHomeDataSuccess
+          ? MediaQuery.removePadding(
+              context: context,
+              removeTop: true,
+              // NotificationListener用于监听子列表滚动
+              child: Stack(
+                children: <Widget>[
+                  NotificationListener(
+                    onNotification: (notification) {
+                      if (notification is ScrollUpdateNotification &&
+                          // notification.depth == 0表示只监听ListView的第0个子Widget
+                          notification.depth == 0) {
+                        _onScroll(notification.metrics.pixels);
+                      }
+                      return true;
+                    },
+                    child: Stack(
+                      children: <Widget>[
+                        ListView(
+                          children: <Widget>[
+                            _swiper(),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 7, vertical: 4),
+                              child: GridNavItem(_localNavList),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 6),
+                              child: Column(
+                                children: <Widget>[
+                                  HomeGridItem(
+                                    model: _hotel,
+                                    topRadius: true,
+                                  ),
+                                  HomeGridItem(
+                                    model: _flight,
+                                  ),
+                                  HomeGridItem(
+                                    model: _travel,
+                                    bottomRadius: true,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SubNavList(
+                              subNavList: _subNavList,
+                            ),
+                            SalesBox(_salesBoxModel),
+                          ],
                         ),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 7, vertical: 4),
-                        child: GridNavItem(_localNavList),
-                      ),
-                      Padding(padding: EdgeInsets.symmetric(horizontal: 6), child: Column(
-                        children: <Widget>[
-                          HomeGridItem(
-                            model: _hotel,
-                            topRadius: true,
-                          ),
-                          HomeGridItem(
-                            model: _flight,
-                          ),
-                          HomeGridItem(
-                            model: _travel,
-                            bottomRadius: true,
-                          ),
-                        ],
-                      ),),
-                      SubNavList(
-                        subNavList: _subNavList,
-                      ),
-                      SalesBox(_salesBoxModel),
-                    ],
-                  )),
-            ],
-          )) : Container(),
+                        _appBar(),
+                      ],
+                    ),
+                  ),
+                ],
+              ))
+          : LoadingWidget(),
+    );
+  }
+
+  _swiper() {
+    return Container(
+      height: 160,
+      child: Swiper(
+        itemCount: _bannerList.length,
+        itemBuilder: (context, index) {
+          return Image.network(
+            _bannerList[index].icon,
+            fit: BoxFit.fill,
+          );
+        },
+        pagination: SwiperPagination(),
+        loop: true,
+        duration: 300,
+        autoplay: true,
+      ),
+    );
+  }
+
+  _appBar() {
+    double statusBarHeight = StatusBarUtils.getStatusBarHeight(context);
+    return Container(
+      height: APP_BAR_HEIGHT + statusBarHeight,
+      child: Column(
+        children: <Widget>[
+          Opacity(
+            opacity: _appBarAlpha,
+            child: Container(
+              height: statusBarHeight,
+              decoration: BoxDecoration(color: Color(int.parse('0xffEDEDED'))),
+            ),
+          ),
+          SearchBar(
+            hint: SEARCH_BOX_HINT,
+            alpha: _appBarAlpha,
+            height: APP_BAR_HEIGHT,
+          )
+        ],
+      ),
     );
   }
 
@@ -134,6 +176,7 @@ class _HomePageState extends State<HomePage> {
     }
     setState(() {
       _appBarAlpha = alpha;
+      print(_appBarAlpha);
     });
   }
 
