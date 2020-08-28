@@ -34,6 +34,7 @@ class _HomePageState extends State<HomePage> {
   NavModel _travel;
   List<CommonModel> _subNavList;
   SalesBoxModel _salesBoxModel;
+  String _searchUrl;
 
   @override
   void initState() {
@@ -54,6 +55,7 @@ class _HomePageState extends State<HomePage> {
         _travel = _gridNavModel.travel;
         _subNavList = model.subNavList;
         _salesBoxModel = model.salesBox;
+        _searchUrl = model.config.searchUrl;
       });
     } catch (err) {
       _toast(err.toString());
@@ -161,6 +163,7 @@ class _HomePageState extends State<HomePage> {
             hint: SEARCH_BOX_HINT,
             alpha: _appBarAlpha,
             height: APP_BAR_HEIGHT,
+            searchUrl: _searchUrl,
           )
         ],
       ),

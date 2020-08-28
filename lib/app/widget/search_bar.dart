@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/app/widget/home_search_page.dart';
 
 const double APP_BAR_HEIGHT = 50;
 
@@ -6,15 +7,15 @@ class SearchBar extends StatefulWidget {
   final String hint;
   final double alpha;
   final double height;
+  final String searchUrl;
 
-  SearchBar({this.hint, this.alpha, this.height});
+  SearchBar({this.hint, this.alpha, this.height, this.searchUrl});
 
   @override
   _SearchBarState createState() => _SearchBarState();
 }
 
 class _SearchBarState extends State<SearchBar> {
-
   @override
   Widget build(BuildContext context) {
     return FractionallySizedBox(
@@ -67,7 +68,8 @@ class _SearchBarState extends State<SearchBar> {
           color: _getSearchBoxBackgroundColor()),
       child: GestureDetector(
         onTap: () {
-
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => HomeSearchPage(widget.searchUrl)));
         },
         child: Row(
           children: <Widget>[
@@ -94,8 +96,8 @@ class _SearchBarState extends State<SearchBar> {
   _getWidgetColor() {
     return widget.alpha > 0.3 ? Colors.brown : Colors.white;
   }
-  
-  _getSearchBoxBackgroundColor(){
+
+  _getSearchBoxBackgroundColor() {
     return widget.alpha > 0.3 ? Color(int.parse('0xffEDEDED')) : Colors.white;
   }
 }
