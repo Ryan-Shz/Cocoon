@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/app/widget/home_search_page.dart';
+import 'package:flutter_app/app/utils/RouteUtils.dart';
+import 'package:flutter_app/app/widget/search_widget.dart';
+import 'package:flutter_app/app/widget/search_box.dart';
 
 const double APP_BAR_HEIGHT = 50;
 
@@ -59,37 +61,12 @@ class _SearchBarState extends State<SearchBar> {
   }
 
   _searchBox() {
-    return Container(
-      height: 30,
-      margin: EdgeInsets.symmetric(horizontal: 7),
-      padding: EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: _getSearchBoxBackgroundColor()),
-      child: GestureDetector(
-        onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => HomeSearchPage(widget.searchUrl)));
-        },
-        child: Row(
-          children: <Widget>[
-            Icon(
-              Icons.search,
-              color: Colors.grey,
-            ),
-            Expanded(
-              child: Text(
-                widget.hint,
-                style: TextStyle(color: Colors.grey),
-              ),
-            ),
-            Icon(
-              Icons.keyboard_voice,
-              color: Colors.grey,
-            )
-          ],
-        ),
-      ),
+    return SearchBox(
+      hint: widget.hint,
+      backgroundColor: _getSearchBoxBackgroundColor(),
+      clickCallback: () {
+        RouteUtils.open(context, HomeSearchPage(searchUrl: widget.searchUrl,));
+      },
     );
   }
 

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/app/dao/home_dao.dart';
+import 'package:flutter_app/app/global/Global.dart';
 import 'package:flutter_app/app/model/banner_model.dart';
 import 'package:flutter_app/app/model/common_model.dart';
 import 'package:flutter_app/app/model/grid_nav_model.dart';
 import 'package:flutter_app/app/model/home_model.dart';
 import 'package:flutter_app/app/model/sales_box_model.dart';
 import 'package:flutter_app/app/utils/statusbar_utils.dart';
+import 'package:flutter_app/app/utils/toast_utils.dart';
 import 'package:flutter_app/app/widget/grid_item.dart';
 import 'package:flutter_app/app/widget/grid_nav.dart';
 import 'package:flutter_app/app/widget/loading.dart';
@@ -13,7 +15,6 @@ import 'package:flutter_app/app/widget/sales_box.dart';
 import 'package:flutter_app/app/widget/search_bar.dart';
 import 'package:flutter_app/app/widget/sub_nav.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:toast/toast.dart';
 
 const APPBAR_SCROLL_OFFSET = 200;
 const SEARCH_BOX_HINT = '网红打卡地 景点 酒店 美食';
@@ -56,9 +57,10 @@ class _HomePageState extends State<HomePage> {
         _subNavList = model.subNavList;
         _salesBoxModel = model.salesBox;
         _searchUrl = model.config.searchUrl;
+        Global.HOME_MODEL = model;
       });
     } catch (err) {
-      _toast(err.toString());
+      ToastUtils.toast(context, err.toString());
     }
   }
 
@@ -181,10 +183,5 @@ class _HomePageState extends State<HomePage> {
       _appBarAlpha = alpha;
       print(_appBarAlpha);
     });
-  }
-
-  void _toast(String message) {
-    Toast.show(message, context,
-        duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
   }
 }

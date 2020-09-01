@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/app/widget/webview_widget.dart';
 
 class MyPage extends StatefulWidget {
   @override
@@ -8,10 +9,11 @@ class MyPage extends StatefulWidget {
 class _MyPageState extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Center(
-          child: Text('我的'),
-        )
+    return Scaffold(
+      body: WebViewWidget(
+        url: 'https://m.ctrip.com/webapp/myctrip/',
+        forbiddenBack: true,
+      ),
     );
   }
 }
